@@ -193,9 +193,9 @@ export default function Login() {
 
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { name: 'Starter', price: '$29', desc: 'Ideal for small apiary operations.', features: ['Up to 20 hives', 'Batch tracking', 'QR verification'] },
-              { name: 'Growth', price: '$79', desc: 'For mid-size producer groups.', features: ['Unlimited hives', 'Advanced analytics', 'Admin controls'], featured: true },
-              { name: 'Enterprise', price: '$149', desc: 'Built for regional supply chains.', features: ['Multi-site support', 'Custom reports', 'Priority onboarding'] },
+              { name: 'Starter', price: '₹29', desc: 'Ideal for small apiary operations.', features: ['Up to 20 hives', 'Batch tracking', 'QR verification'] },
+              { name: 'Growth', price: '₹79', desc: 'For mid-size producer groups.', features: ['Unlimited hives', 'Advanced analytics', 'Admin controls'], featured: true },
+              { name: 'Enterprise', price: '₹149', desc: 'Built for regional supply chains.', features: ['Multi-site support', 'Custom reports', 'Priority onboarding'] },
             ].map((plan) => (
               <div key={plan.name} className={`price-card ${plan.featured ? 'featured' : ''}`}>
                 <div className="text-sm uppercase tracking-[0.18em] text-gray-500">{plan.name}</div>
