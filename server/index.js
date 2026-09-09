@@ -23,6 +23,7 @@ if (fs.existsSync(clientDist)) {
 const { hives, sensors, batches, blockchain, generateNewSensorSample } = require('./data');
 require('dotenv').config();
 const mongoose = require('mongoose');
+const crypto = require('crypto');
 let dbConnected = false;
 let HiveModel, BatchModel, SensorSample;
 
@@ -158,6 +159,68 @@ app.get('/api/verify/:batchId', (req, res) => {
   if (!batch) return res.status(404).json({ verified: false });
   const chain = blockchain[id] || [];
   res.json({ verified: true, batch, chain });
+});
+
+// Signed verification endpoint (HMAC) - useful for programmatic verification
+app.get('/api/verify-signed/:batchId', (req, res) => {
+  const id = req.params.batchId;
+  const batch = batches.find(b => b.id === id);
+  if (!batch) return res.status(404).json({ verified: false });
+  const chain = blockchain[id] || [];
+  const payload = { verified: true, batch, chain, ts: new Date().toISOString() };
+  const secret = process.env.HMAC_SECRET || 'dev-secret';
+  const sig = crypto.createHmac('sha256', secret).update(JSON.stringify(payload)).digest('hex');
+  res.json({ payload, signature: sig });
+});
+
+// Printable certificate (HTML) for a batch - user can Print -> Save as PDF
+app.get('/certificate/:batchId', (req, res) => {
+  const id = req.params.batchId;
+  const batch = batches.find(b => b.id === id);
+  if (!batch) return res.status(404).send('<h1>Not found</h1>');
+  const chain = blockchain[id] || [];
+  const secret = process.env.HMAC_SECRET || 'dev-secret';
+  const payload = { verified: true, batch, chain, ts: new Date().toISOString() };
+  const sig = crypto.createHmac('sha256', secret).update(JSON.stringify(payload)).digest('hex');
+
+  const html = `<!doctype html>
+  <html>
+  <head>
+    <meta charset="utf-8">
+    <title>Certificate - ${batch.id}</title>
+    <style>
+      body{font-family: Arial, Helvetica, sans-serif; background:#000; color:#f3f4f6; padding:40px}
+      .card{background:linear-gradient(180deg,#0b1220,#020202); padding:28px; border-radius:12px; max-width:800px; margin:0 auto}
+      h1{color:#fbbf24}
+      .meta{margin-top:12px}
+      .chain{margin-top:20px; font-size:12px; color:#cbd5e1}
+      .sig{margin-top:20px; font-size:10px; color:#9ca3af; word-break:break-all}
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Honey Chain — Provenance Certificate</h1>
+      <div class="meta">
+        <strong>Batch ID:</strong> ${batch.id}<br/>
+        <strong>Hive:</strong> ${batch.hiveId}<br/>
+        <strong>Beekeeper:</strong> ${batch.beekeeper || ''}<br/>
+        <strong>Harvest Date:</strong> ${batch.harvestDate || ''}<br/>
+        <strong>Quantity:</strong> ${batch.quantityKg || ''} Kg
+      </div>
+      <div class="chain">
+        <strong>Chain of custody:</strong>
+        <ol>
+          ${chain.map(c => `<li>${c.stage || 'Stage'} — ${c.timestamp}</li>`).join('')}
+        </ol>
+      </div>
+      <div class="sig"><strong>Signature (HMAC-SHA256):</strong><br/>${sig}</div>
+      <div style="margin-top:18px; font-size:12px; color:#94a3b8">Verify at: ${req.protocol}://${req.get('host')}/api/verify-signed/${batch.id}</div>
+    </div>
+  </body>
+  </html>`;
+
+  res.setHeader('Content-Type', 'text/html');
+  res.send(html);
 });
 
 function computeHealth(last) {

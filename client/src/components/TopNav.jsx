@@ -7,11 +7,17 @@ export default function TopNav(){
   const auth = getAuthSession()
   const [darkMode, setDarkMode] = useState(() => {
     const saved = localStorage.getItem('honeychain-theme')
-    return saved ? saved === 'dark' : false
+    return saved ? saved === 'dark' : true
   })
 
   useEffect(() => {
-    document.documentElement.classList.toggle('dark', darkMode)
+    if (darkMode) {
+      document.documentElement.classList.add('dark')
+      document.documentElement.classList.remove('light')
+    } else {
+      document.documentElement.classList.add('light')
+      document.documentElement.classList.remove('dark')
+    }
     localStorage.setItem('honeychain-theme', darkMode ? 'dark' : 'light')
   }, [darkMode])
 
@@ -21,16 +27,18 @@ export default function TopNav(){
   }
 
   return (
-    <header className="topbar flex items-center justify-between p-4 border-b dark:border-slate-700">
-      <div className="flex items-center space-x-4">
-        <button className="md:hidden">☰</button>
+    <header className="topbar flex items-center justify-between p-4 border-b border-amber-200/20 bg-[#0f172a]/80 backdrop-blur-sm">
+      <div className="flex items-center gap-3 min-w-0">
+        <button className="md:hidden text-lg font-bold text-slate-100">☰</button>
         <div className="brand-mark" aria-label="Honey Chain logo" />
-        <Link to={auth ? getDefaultRoute(auth.role) : '/login'} className="text-lg font-semibold text-forest dark:text-amber-300">Dashboard</Link>
-        <div className="text-sm text-gray-500 dark:text-slate-300">Smart Beekeeping Management</div>
+        <div className="flex items-center gap-3 min-w-0">
+          <Link to={auth ? getDefaultRoute(auth.role) : '/login'} className="text-lg font-bold text-amber-300 whitespace-nowrap">Dashboard</Link>
+          <div className="text-sm font-medium text-slate-200 whitespace-nowrap">Smart Beekeeping Management</div>
+        </div>
       </div>
       <div className="flex items-center space-x-4">
-        <input placeholder="Search" className="px-3 py-1 border rounded dark:bg-slate-800 dark:text-white dark:border-slate-700" />
-        <div className="p-2">🔔</div>
+        <input placeholder="Search" className="px-3 py-1 border border-slate-700 rounded bg-slate-900 text-slate-100 placeholder:text-slate-400" />
+        <div className="p-2 text-lg">🔔</div>
         <button
           type="button"
           onClick={() => setDarkMode((prev) => !prev)}
@@ -40,10 +48,10 @@ export default function TopNav(){
           {darkMode ? '☀️' : '🌙'}
         </button>
         <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-slate-600" />
-          <div className="text-sm dark:text-slate-200">{auth?.name || 'Guest'}</div>
+          <div className="w-8 h-8 rounded-full bg-amber-200 border border-amber-300" />
+          <div className="text-sm font-semibold text-slate-100">{auth?.name || 'Guest'}</div>
           {auth && (
-            <button onClick={handleLogout} className="text-xs border px-2 py-1 rounded dark:border-slate-600 dark:text-slate-200">Logout</button>
+            <button onClick={handleLogout} className="text-xs border border-slate-600 px-2 py-1 rounded text-slate-100 hover:bg-slate-800">Logout</button>
           )}
         </div>
       </div>

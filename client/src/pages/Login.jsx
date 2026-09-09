@@ -51,7 +51,7 @@ export default function Login() {
               <h1 className="text-4xl md:text-5xl font-black text-forest leading-tight">
                 Trace every drop of honey from hive to home.
               </h1>
-              <p className="mt-5 text-lg text-gray-700 max-w-xl">
+              <p className="mt-5 text-lg text-slate-900 max-w-xl">
                 Monitor beehives, verify harvest batches, and provide secure product traceability through a connected smart beekeeping dashboard.
               </p>
             </div>
@@ -59,22 +59,22 @@ export default function Login() {
             <div className="grid gap-4 sm:grid-cols-3">
               <div className="glass-panel rounded-2xl p-4">
                 <div className="text-2xl font-bold text-forest">24/7</div>
-                <div className="text-sm text-gray-600">Hive monitoring</div>
+                <div className="text-sm text-slate-900">Hive monitoring</div>
               </div>
               <div className="glass-panel rounded-2xl p-4">
                 <div className="text-2xl font-bold text-forest">3x</div>
-                <div className="text-sm text-gray-600">Faster traceability</div>
+                <div className="text-sm text-slate-900">Faster traceability</div>
               </div>
               <div className="glass-panel rounded-2xl p-4">
                 <div className="text-2xl font-bold text-forest">100%</div>
-                <div className="text-sm text-gray-600">Batch visibility</div>
+                <div className="text-sm text-slate-900">Batch visibility</div>
               </div>
             </div>
 
             <div className="product-scene glass-panel rounded-[28px] overflow-hidden p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <div className="text-xs uppercase tracking-[0.2em] text-gray-500">Live harvest</div>
+                  <div className="text-xs uppercase tracking-[0.2em] text-slate-600">Live harvest</div>
                   <div className="text-2xl font-bold text-forest">Batch HC-2026-001</div>
                 </div>
                 <div className="status-pill">Verified</div>
@@ -102,7 +102,7 @@ export default function Login() {
           <div className="glass-panel rounded-[30px] p-6 md:p-8 shadow-2xl">
             <div className="mb-6 text-center">
               <div className="text-3xl font-bold text-forest">Welcome</div>
-              <p className="text-sm text-gray-500 mt-2">Sign in to continue</p>
+              <p className="text-sm text-slate-800 mt-2">Sign in to continue</p>
             </div>
 
             <div className="role-toggle mb-5">
@@ -120,22 +120,22 @@ export default function Login() {
 
             <form onSubmit={submitLogin} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">Username</label>
+                <label className="block text-sm font-medium text-slate-900">Username</label>
                 <input
                   value={form.username}
                   onChange={handleChange('username')}
-                  className="mt-1 w-full border border-amber-200 rounded-xl p-3 bg-white/80 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
+                  className="mt-1 w-full border border-amber-200 rounded-xl p-3 input-field focus:outline-none focus:ring-2 focus:ring-amber-300"
                   placeholder="admin or user"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">Password</label>
+                <label className="block text-sm font-medium text-slate-900">Password</label>
                 <input
                   type="password"
                   value={form.password}
                   onChange={handleChange('password')}
-                  className="mt-1 w-full border border-amber-200 rounded-xl p-3 bg-white/80 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-amber-300"
+                  className="mt-1 w-full border border-amber-200 rounded-xl p-3 input-field focus:outline-none focus:ring-2 focus:ring-amber-300"
                   placeholder="Enter password"
                 />
               </div>
@@ -148,16 +148,16 @@ export default function Login() {
             </form>
 
             <div className="mt-6 space-y-3">
-              <div className="text-sm font-medium text-gray-700">Quick demo access</div>
+              <div className="text-sm font-medium text-slate-900">Quick demo access</div>
               {Object.values(AUTH_USERS).map((user) => (
                 <button
                   key={user.role}
                   type="button"
                   onClick={() => useDemoRole(user.role)}
-                  className="w-full text-left border border-amber-200 rounded-xl p-3 bg-white/70 hover:bg-amber-50 transition"
+                  className="w-full text-left border border-amber-200 rounded-xl p-3 demo-btn transition"
                 >
                   <div className="font-semibold text-forest">{user.name}</div>
-                  <div className="text-xs text-gray-500">{user.username} / {user.password}</div>
+                  <div className="text-xs text-slate-800">{user.username} / {user.password}</div>
                 </button>
               ))}
             </div>
@@ -179,7 +179,7 @@ export default function Login() {
               <div key={feature.title} className="glass-panel rounded-2xl p-6">
                 <div className="feature-icon">✦</div>
                 <h3 className="text-xl font-semibold text-forest mt-4">{feature.title}</h3>
-                <p className="mt-3 text-sm text-gray-600 dark:text-slate-300">{feature.text}</p>
+                <p className="mt-3 text-sm text-slate-700 dark:text-slate-200">{feature.text}</p>
               </div>
             ))}
           </div>
@@ -198,10 +198,10 @@ export default function Login() {
               { name: 'Enterprise', price: '₹149', desc: 'Built for regional supply chains.', features: ['Multi-site support', 'Custom reports', 'Priority onboarding'] },
             ].map((plan) => (
               <div key={plan.name} className={`price-card ${plan.featured ? 'featured' : ''}`}>
-                <div className="text-sm uppercase tracking-[0.18em] text-gray-500">{plan.name}</div>
+                <div className="text-sm uppercase tracking-[0.18em] text-slate-600">{plan.name}</div>
                 <div className="mt-4 text-4xl font-black text-forest">{plan.price}<span className="text-base font-medium">/mo</span></div>
-                <p className="mt-3 text-sm text-gray-600 dark:text-slate-300">{plan.desc}</p>
-                <ul className="mt-5 space-y-2 text-sm text-gray-700 dark:text-slate-200">
+                <p className="mt-3 text-sm text-slate-700 dark:text-slate-200">{plan.desc}</p>
+                <ul className="mt-5 space-y-2 text-sm text-slate-800 dark:text-slate-200">
                   {plan.features.map((item) => <li key={item}>✓ {item}</li>)}
                 </ul>
                 <button type="button" className="mt-6 w-full rounded-xl bg-forest text-white py-3 font-semibold">Choose plan</button>
@@ -211,8 +211,8 @@ export default function Login() {
         </section>
       </div>
 
-      <footer className="mt-16 border-t border-amber-200/80 bg-white/40 dark:bg-slate-900/40">
-        <div className="max-w-6xl mx-auto py-6 px-6 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-gray-600 dark:text-slate-300">
+      <footer className="mt-16 border-t border-amber-200/80 footer-panel">
+        <div className="max-w-6xl mx-auto py-6 px-6 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-slate-900 dark:text-slate-200">
           <div className="flex items-center gap-2">
             <span className="brand-mark tiny" aria-label="Honey Chain logo" />
             <span className="font-semibold text-forest dark:text-amber-300">Honey Chain</span>

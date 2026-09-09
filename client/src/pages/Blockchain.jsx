@@ -14,11 +14,11 @@ export default function Blockchain(){
       <h2 className="text-2xl font-semibold mb-4">Blockchain Trace — {id}</h2>
       <div className="space-y-3">
         {chain.map((c,i)=> (
-          <div key={i} className="bg-white p-4 rounded shadow">
-            <div className="text-sm text-gray-500">Stage: {c.stage || 'Stage ' + (i+1)}</div>
-            <div className="text-xs text-gray-500">Timestamp: {c.timestamp}</div>
-            <div className="text-xs">Tx: {c.txId || c.hash}</div>
-            <div className="text-xs text-gray-400">Prev: {c.prevHash || '—'}</div>
+          <div key={i} className="panel p-4 rounded shadow">
+            <div className="text-sm font-medium text-slate-900">Stage: {c.stage || 'Stage ' + (i+1)}</div>
+            <div className="text-xs font-medium text-slate-700">Timestamp: {c.timestamp}</div>
+            <div className="text-xs text-slate-800">Tx: {c.txId || c.hash}</div>
+            <div className="text-xs text-slate-600">Prev: {c.prevHash || '—'}</div>
             <div className="mt-2 text-green-700">{c.status || 'Verified'}</div>
           </div>
         ))}

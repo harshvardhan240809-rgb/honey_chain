@@ -21,7 +21,7 @@ export default function Admin(){
   return (
     <div className="max-w-2xl">
       <h2 className="text-2xl font-semibold mb-4">Admin Panel</h2>
-      <div className="bg-white p-4 rounded shadow mb-4">
+      <div className="panel p-4 rounded shadow mb-4">
         <h4 className="font-semibold">Add Hive</h4>
         <div className="flex space-x-2 mt-2">
           <input className="border p-2 flex-1" value={newHive} onChange={e=>setNewHive(e.target.value)} placeholder="Hive ID e.g. HIVE-005" />
@@ -29,7 +29,7 @@ export default function Admin(){
         </div>
       </div>
 
-      <div className="bg-white p-4 rounded shadow">
+      <div className="panel p-4 rounded shadow">
         <h4 className="font-semibold">Create Batch</h4>
         <div className="flex space-x-2 mt-2">
           <input className="border p-2 flex-1" value={newBatch} onChange={e=>setNewBatch(e.target.value)} placeholder="Batch ID e.g. HC-2026-999" />

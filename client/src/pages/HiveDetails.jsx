@@ -17,9 +17,9 @@ export default function HiveDetails(){
     <div>
       <h2 className="text-2xl font-semibold mb-2">{hive.id}</h2>
       <div className="grid md:grid-cols-3 gap-4 mb-4">
-        <div className="bg-white p-4 rounded shadow">Location<div className="font-semibold">{hive.location}</div></div>
-        <div className="bg-white p-4 rounded shadow">Battery<div className="font-semibold">{history[history.length-1]?.battery ?? '—'}%</div></div>
-        <div className="bg-white p-4 rounded shadow">Last updated<div className="font-semibold">{history[history.length-1]?.ts ?? '—'}</div></div>
+        <div className="panel p-4 rounded shadow">Location<div className="font-semibold">{hive.location}</div></div>
+        <div className="panel p-4 rounded shadow">Battery<div className="font-semibold">{history[history.length-1]?.battery ?? '—'}%</div></div>
+        <div className="panel p-4 rounded shadow">Last updated<div className="font-semibold">{history[history.length-1]?.ts ?? '—'}</div></div>
       </div>
 
       <div className="grid md:grid-cols-3 gap-4">
