@@ -10,8 +10,8 @@ html.dark body{background:#000000; color:#f8fafc}
 
 /* Ensure any element using white backgrounds becomes dark (catches bg-white and bg-white/*) */
 [class*="bg-white"],
-.bg-[#0b1220],
-.bg-[#0f172a] {
+[class~="bg-[#0b1220]"],
+[class~="bg-[#0f172a]"] {
   background: rgba(0, 0, 0, 0.98) !important;
   color: #e2e8f0 !important;
 }

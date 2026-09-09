@@ -1,9 +1,11 @@
 import React, {useState} from 'react'
 import API from '../utils/api'
+import { useLanguage } from '../language'
 
 export default function Admin(){
   const [newHive, setNewHive] = useState('')
   const [newBatch, setNewBatch] = useState('')
+  const { t } = useLanguage()
 
   async function addHive(){
     if(!newHive) return
@@ -20,20 +22,20 @@ export default function Admin(){
 
   return (
     <div className="max-w-2xl">
-      <h2 className="text-2xl font-semibold mb-4">Admin Panel</h2>
+      <h2 className="text-2xl font-semibold mb-4">{t.adminPanel}</h2>
       <div className="panel p-4 rounded shadow mb-4">
-        <h4 className="font-semibold">Add Hive</h4>
+        <h4 className="font-semibold">{t.addHive}</h4>
         <div className="flex space-x-2 mt-2">
           <input className="border p-2 flex-1" value={newHive} onChange={e=>setNewHive(e.target.value)} placeholder="Hive ID e.g. HIVE-005" />
-          <button className="px-4 py-2 bg-forest text-white rounded" onClick={addHive}>Add</button>
+          <button className="px-4 py-2 bg-forest text-white rounded" onClick={addHive}>{t.add}</button>
         </div>
       </div>
 
       <div className="panel p-4 rounded shadow">
-        <h4 className="font-semibold">Create Batch</h4>
+        <h4 className="font-semibold">{t.createBatch}</h4>
         <div className="flex space-x-2 mt-2">
           <input className="border p-2 flex-1" value={newBatch} onChange={e=>setNewBatch(e.target.value)} placeholder="Batch ID e.g. HC-2026-999" />
-          <button className="px-4 py-2 bg-forest text-white rounded" onClick={addBatch}>Create</button>
+          <button className="px-4 py-2 bg-forest text-white rounded" onClick={addBatch}>{t.create}</button>
         </div>
       </div>
     </div>

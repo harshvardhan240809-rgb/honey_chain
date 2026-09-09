@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AUTH_USERS, getAuthSession, getDefaultRoute, loginUser } from '../auth'
+import { useLanguage } from '../language'
 
 export default function Login() {
   const navigate = useNavigate()
   const auth = getAuthSession()
+  const { language, toggleLanguage, t } = useLanguage()
   const [form, setForm] = useState({ username: '', password: '' })
   const [error, setError] = useState('')
   const [selectedRole, setSelectedRole] = useState('user')
@@ -39,6 +41,11 @@ export default function Login() {
 
   return (
     <div className="min-h-screen bg-honey-gradient p-6">
+      <div className="mx-auto flex max-w-6xl justify-end">
+        <button type="button" onClick={toggleLanguage} className="rounded border border-amber-300/60 px-3 py-1 text-sm font-bold text-forest" aria-label={language === 'en' ? 'Switch to Hindi' : 'Switch to English'}>
+          {language === 'en' ? 'हिंदी' : 'English'}
+        </button>
+      </div>
       <div className="max-w-6xl mx-auto pt-8 pb-12">
         <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-8 items-center">
           <div className="space-y-6">
@@ -49,35 +56,33 @@ export default function Login() {
 
             <div>
               <h1 className="text-4xl md:text-5xl font-black text-forest leading-tight">
-                Trace every drop of honey from hive to home.
+                {t.traceEveryDrop}
               </h1>
-              <p className="mt-5 text-lg text-slate-900 max-w-xl">
-                Monitor beehives, verify harvest batches, and provide secure product traceability through a connected smart beekeeping dashboard.
-              </p>
+              <p className="mt-5 text-lg text-slate-900 max-w-xl">{t.monitorBees}</p>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-3">
               <div className="glass-panel rounded-2xl p-4">
                 <div className="text-2xl font-bold text-forest">24/7</div>
-                <div className="text-sm text-slate-900">Hive monitoring</div>
+                <div className="text-sm text-slate-900">{t.hiveMonitoring}</div>
               </div>
               <div className="glass-panel rounded-2xl p-4">
                 <div className="text-2xl font-bold text-forest">3x</div>
-                <div className="text-sm text-slate-900">Faster traceability</div>
+                <div className="text-sm text-slate-900">{t.fasterTraceability}</div>
               </div>
               <div className="glass-panel rounded-2xl p-4">
                 <div className="text-2xl font-bold text-forest">100%</div>
-                <div className="text-sm text-slate-900">Batch visibility</div>
+                <div className="text-sm text-slate-900">{t.batchVisibility}</div>
               </div>
             </div>
 
             <div className="product-scene glass-panel rounded-[28px] overflow-hidden p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <div className="text-xs uppercase tracking-[0.2em] text-slate-600">Live harvest</div>
+                  <div className="text-xs uppercase tracking-[0.2em] text-slate-600">{t.liveHarvest}</div>
                   <div className="text-2xl font-bold text-forest">Batch HC-2026-001</div>
                 </div>
-                <div className="status-pill">Verified</div>
+                <div className="status-pill">{t.verified}</div>
               </div>
 
               <div className="product-body">
@@ -101,8 +106,8 @@ export default function Login() {
 
           <div className="glass-panel rounded-[30px] p-6 md:p-8 shadow-2xl">
             <div className="mb-6 text-center">
-              <div className="text-3xl font-bold text-forest">Welcome</div>
-              <p className="text-sm text-slate-800 mt-2">Sign in to continue</p>
+              <div className="text-3xl font-bold text-forest">{t.welcome}</div>
+              <p className="text-sm text-slate-800 mt-2">{t.signInContinue}</p>
             </div>
 
             <div className="role-toggle mb-5">
@@ -120,35 +125,35 @@ export default function Login() {
 
             <form onSubmit={submitLogin} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-slate-900">Username</label>
+                <label className="block text-sm font-medium text-slate-900">{t.username}</label>
                 <input
                   value={form.username}
                   onChange={handleChange('username')}
                   className="mt-1 w-full border border-amber-200 rounded-xl p-3 input-field focus:outline-none focus:ring-2 focus:ring-amber-300"
-                  placeholder="admin or user"
+                  placeholder={t.adminOrUser}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-900">Password</label>
+                <label className="block text-sm font-medium text-slate-900">{t.password}</label>
                 <input
                   type="password"
                   value={form.password}
                   onChange={handleChange('password')}
                   className="mt-1 w-full border border-amber-200 rounded-xl p-3 input-field focus:outline-none focus:ring-2 focus:ring-amber-300"
-                  placeholder="Enter password"
+                  placeholder={t.enterPassword}
                 />
               </div>
 
               {error && <div className="text-sm text-red-600">{error}</div>}
 
               <button type="submit" className="w-full bg-forest text-white rounded-xl p-3 font-semibold hover:bg-[#163d34] transition-all shadow-lg shadow-amber-200/50">
-                Login to dashboard
+                {t.loginDashboard}
               </button>
             </form>
 
             <div className="mt-6 space-y-3">
-              <div className="text-sm font-medium text-slate-900">Quick demo access</div>
+              <div className="text-sm font-medium text-slate-900">{t.quickDemo}</div>
               {Object.values(AUTH_USERS).map((user) => (
                 <button
                   key={user.role}
@@ -166,15 +171,15 @@ export default function Login() {
 
         <section className="mt-16">
           <div className="text-center mb-8">
-            <div className="section-kicker">Why teams choose Honey Chain</div>
-            <h2 className="text-3xl font-bold text-forest mt-3">Everything you need to build trust at every step</h2>
+            <div className="section-kicker">{t.whyTeams}</div>
+            <h2 className="text-3xl font-bold text-forest mt-3">{t.trustEveryStep}</h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { title: 'Live Hive Insights', text: 'Track temperature, humidity, weight, and battery health in one operational dashboard.' },
-              { title: 'Blockchain Proof', text: 'Create immutable traceability records for every harvest and supply chain checkpoint.' },
-              { title: 'Consumer Confidence', text: 'Link each batch to a QR code and verify origin instantly before every purchase.' },
+              { title: t.liveHiveInsights, text: t.liveHiveText },
+              { title: t.blockchainProof, text: t.blockchainProofText },
+              { title: t.consumerConfidence, text: t.consumerConfidenceText },
             ].map((feature) => (
               <div key={feature.title} className="glass-panel rounded-2xl p-6">
                 <div className="feature-icon">✦</div>
@@ -185,30 +190,6 @@ export default function Login() {
           </div>
         </section>
 
-        <section className="mt-16 pricing-wrap glass-panel rounded-[28px] p-8">
-          <div className="text-center mb-8">
-            <div className="section-kicker">Simple pricing</div>
-            <h2 className="text-3xl font-bold text-forest mt-3">Start small, scale as your network grows</h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              { name: 'Starter', price: '₹29', desc: 'Ideal for small apiary operations.', features: ['Up to 20 hives', 'Batch tracking', 'QR verification'] },
-              { name: 'Growth', price: '₹79', desc: 'For mid-size producer groups.', features: ['Unlimited hives', 'Advanced analytics', 'Admin controls'], featured: true },
-              { name: 'Enterprise', price: '₹149', desc: 'Built for regional supply chains.', features: ['Multi-site support', 'Custom reports', 'Priority onboarding'] },
-            ].map((plan) => (
-              <div key={plan.name} className={`price-card ${plan.featured ? 'featured' : ''}`}>
-                <div className="text-sm uppercase tracking-[0.18em] text-slate-600">{plan.name}</div>
-                <div className="mt-4 text-4xl font-black text-forest">{plan.price}<span className="text-base font-medium">/mo</span></div>
-                <p className="mt-3 text-sm text-slate-700 dark:text-slate-200">{plan.desc}</p>
-                <ul className="mt-5 space-y-2 text-sm text-slate-800 dark:text-slate-200">
-                  {plan.features.map((item) => <li key={item}>✓ {item}</li>)}
-                </ul>
-                <button type="button" className="mt-6 w-full rounded-xl bg-forest text-white py-3 font-semibold">Choose plan</button>
-              </div>
-            ))}
-          </div>
-        </section>
       </div>
 
       <footer className="mt-16 border-t border-amber-200/80 footer-panel">

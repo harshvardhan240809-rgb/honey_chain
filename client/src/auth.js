@@ -1,8 +1,9 @@
 const STORAGE_KEY = 'honeychain-auth';
 
 export const AUTH_USERS = {
-  admin: { username: 'admin', password: 'admin123', role: 'admin', name: 'Administrator' },
-  user: { username: 'user', password: 'user123', role: 'user', name: 'Field User' },
+  beekeeper: { username: 'beekeeper@example.com', password: 'demo123', role: 'beekeeper', name: 'Demo Beekeeper' },
+  lab: { username: 'lab@example.com', password: 'demo123', role: 'lab', name: 'Demo Lab' },
+  admin: { username: 'admin@example.com', password: 'demo123', role: 'admin', name: 'Platform Admin' },
 };
 
 export function getAuthSession() {
@@ -38,5 +39,7 @@ export function loginUser(username, password) {
 }
 
 export function getDefaultRoute(role) {
-  return role === 'admin' ? '/admin' : '/dashboard';
+  if (role === 'admin') return '/admin';
+  if (role === 'lab') return '/lab';
+  return '/dashboard';
 }
